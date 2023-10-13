@@ -1,8 +1,10 @@
 ## 🎈 is-it-over
 
-Welcome to the party, pal!
+I made this in like 5 minutes ok so don't look at the code too closely
 
-This is a [Partykit](https://partykit.io) project, which lets you create real-time collaborative applications with minimal coding effort.
+https://is-it-over.jevakallio.partykit.dev/
+
+## What's in there
 
 [`server.ts`](./src/server.ts) is the server-side code, which is responsible for handling WebSocket events and HTTP requests. [`client.ts`](./src/client.ts) is the client-side code, which connects to the server and listens for events.
 
