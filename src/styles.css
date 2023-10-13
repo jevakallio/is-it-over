@@ -44,6 +44,20 @@ body {
     "Segoe UI", sans-serif;
 }
 
+.logo {
+  position: absolute;
+  bottom: 2rem;
+  left: auto;
+  right: auto;
+  color: #ccc;
+  width: 300px;
+  text-align: center;
+}
+
+.logo a {
+  color: #bbb;
+}
+
 .toggle {
   cursor: pointer;
   display: inline-block;
