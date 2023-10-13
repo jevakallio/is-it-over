@@ -11,6 +11,13 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem;
 }
 
 h1,
@@ -26,6 +33,68 @@ h6 {
   margin-bottom: 0.5rem;
 }
 
-#app {
-  padding: 1rem;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto",
+    "Segoe UI", sans-serif;
+}
+
+.toggle {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.toggle:disabled {
+  cursor: not-allowed;
+}
+
+.toggle-switch {
+  display: inline-block;
+  background: #ccc;
+  border-radius: 16px;
+  width: 58px;
+  height: 32px;
+  position: relative;
+  vertical-align: middle;
+  transition: background 0.25s;
+  &:before,
+  &:after {
+    content: "";
+  }
+  &:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: left 0.25s;
+  }
+  .toggle:hover &:before {
+    background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  }
+  .toggle-checkbox:checked + & {
+    background: #56c080;
+    &:before {
+      left: 30px;
+    }
+  }
+}
+.toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+.toggle-label {
+  margin-left: 5px;
+  position: relative;
+  top: 2px;
 }
