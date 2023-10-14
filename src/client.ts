@@ -1,6 +1,6 @@
 import "./styles.css";
-
 import PartySocket from "partysocket";
+import { GO_AWAY_SENTINEL, SLOW_DOWN_SENTINEL } from "./types";
 
 declare const PARTYKIT_HOST: string;
 
@@ -14,13 +14,21 @@ const conn = new PartySocket({
 const toggle = document.querySelector(".toggle-switch");
 const over = document.getElementById("over") as HTMLInputElement;
 const back = document.getElementById("back") as HTMLInputElement;
+let b = false;
+
 let itwasme = false;
 
-console.log("toggle", toggle);
-
 conn.addEventListener("message", (e) => {
+  if (e.data === SLOW_DOWN_SENTINEL) {
+    return;
+  }
+
+  if (e.data === GO_AWAY_SENTINEL) {
+    b = true;
+    return;
+  }
+
   const message = JSON.parse(e.data);
-  console.log("receive", message.over, "from", itwasme ? "me" : "them");
   if ("over" in message) {
     itwasme = message.sender === conn.id;
     if (message.over) {
@@ -34,11 +42,15 @@ conn.addEventListener("message", (e) => {
 // Click directly on the switch. Toggle the value.
 toggle?.addEventListener("click", () => {
   console.log("send", !over.checked);
-  conn.send(JSON.stringify({ over: !over.checked }));
+  if (!b) {
+    conn.send(JSON.stringify({ over: !over.checked }));
+  }
 });
 
 // Click on label or use keyboard/screen reader to change selection.
 over?.addEventListener("change", () => {
   console.log("send", over.checked);
-  conn.send(JSON.stringify({ over: over.checked }));
+  if (!b) {
+    conn.send(JSON.stringify({ over: over.checked }));
+  }
 });
