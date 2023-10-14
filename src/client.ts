@@ -8,7 +8,7 @@ declare const PARTYKIT_HOST: string;
 // It handles reconnection logic, buffering messages while it's offline, and more.
 const conn = new PartySocket({
   host: PARTYKIT_HOST,
-  room: "is-it-over-with-cursors",
+  room: "is-it-over-so-back",
 });
 
 const toggle = document.querySelector(".toggle-switch");
