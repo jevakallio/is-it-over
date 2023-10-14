@@ -1,6 +1,6 @@
 import "./styles.css";
-
 import PartySocket from "partysocket";
+import { GO_AWAY_SENTINEL, SLOW_DOWN_SENTINEL } from "./types";
 
 declare const PARTYKIT_HOST: string;
 
@@ -8,17 +8,24 @@ declare const PARTYKIT_HOST: string;
 // It handles reconnection logic, buffering messages while it's offline, and more.
 const conn = new PartySocket({
   host: PARTYKIT_HOST,
-  room: "is-it-over-with-cursors",
+  room: "is-it-over-so-back",
 });
 
 const toggle = document.getElementById("toggle");
+let b = false;
 let itwasme = false;
 
-console.log("toggle", toggle);
-
 conn.addEventListener("message", (e) => {
+  if (e.data === SLOW_DOWN_SENTINEL) {
+    return;
+  }
+
+  if (e.data === GO_AWAY_SENTINEL) {
+    b = true;
+    return;
+  }
+
   const message = JSON.parse(e.data);
-  console.log("receive", message.over, "from", itwasme ? "me" : "them");
   if ("over" in message) {
     itwasme = message.sender === conn.id;
     (toggle as any).checked = message.over;
@@ -28,5 +35,7 @@ conn.addEventListener("message", (e) => {
 toggle?.addEventListener("click", (e) => {
   const over = (e.target as any)?.checked;
   console.log("send", over);
-  conn.send(JSON.stringify({ over }));
+  if (!b) {
+    conn.send(JSON.stringify({ over }));
+  }
 });
