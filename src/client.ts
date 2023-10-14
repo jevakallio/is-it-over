@@ -11,7 +11,9 @@ const conn = new PartySocket({
   room: "is-it-over-with-cursors",
 });
 
-const toggle = document.getElementById("toggle");
+const toggle = document.querySelector(".toggle-switch");
+const over = document.getElementById("over") as HTMLInputElement;
+const back = document.getElementById("back") as HTMLInputElement;
 let itwasme = false;
 
 console.log("toggle", toggle);
@@ -21,12 +23,22 @@ conn.addEventListener("message", (e) => {
   console.log("receive", message.over, "from", itwasme ? "me" : "them");
   if ("over" in message) {
     itwasme = message.sender === conn.id;
-    (toggle as any).checked = message.over;
+    if (message.over) {
+      over.checked = true;
+    } else {
+      back.checked = true;
+    }
   }
 });
 
-toggle?.addEventListener("click", (e) => {
-  const over = (e.target as any)?.checked;
-  console.log("send", over);
-  conn.send(JSON.stringify({ over }));
+// Click directly on the switch. Toggle the value.
+toggle?.addEventListener("click", () => {
+  console.log("send", !over.checked);
+  conn.send(JSON.stringify({ over: !over.checked }));
+});
+
+// Click on label or use keyboard/screen reader to change selection.
+over?.addEventListener("change", () => {
+  console.log("send", over.checked);
+  conn.send(JSON.stringify({ over: over.checked }));
 });

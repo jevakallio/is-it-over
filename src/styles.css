@@ -1,9 +1,9 @@
-/* 
-  We've already included normalize.css. 
+/*
+  We've already included normalize.css.
 
-  But we'd like a modern looking boilerplate. 
-  Clean type, sans-serif, and a nice color palette. 
-  
+  But we'd like a modern looking boilerplate.
+  Clean type, sans-serif, and a nice color palette.
+
 */
 
 body {
@@ -82,19 +82,29 @@ body {
     background: linear-gradient(to bottom, #fff 0%, #fff 100%);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
   }
-  .toggle-checkbox:checked + & {
+  #over:not(:checked) + & {
     background: #56c080;
     &:before {
       left: 30px;
     }
   }
 }
-.toggle-checkbox {
+.toggle-radio {
+  /* make it visually hidden but still there for screen readers */
+  border: 0px;
+  clip: rect(0px, 0px, 0px, 0px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0px;
   position: absolute;
-  visibility: hidden;
+  width: 1px;
+  white-space: nowrap;
 }
 .toggle-label {
   margin-left: 5px;
   position: relative;
   top: 2px;
+  cursor: pointer;
 }
