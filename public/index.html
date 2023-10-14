@@ -40,12 +40,13 @@
     </style>
   </head>
   <body>
-    <label class="toggle">
-      <span class="toggle-label">It's so over</span>
-      <input id="toggle" class="toggle-checkbox" type="checkbox" checked />
+    <div class="toggle" id="toggle">
+      <label for="over" class="toggle-label">It's so over</label>
+      <input id="over" name="over-back" class="toggle-radio" type="radio" />
       <div class="toggle-switch"></div>
-      <span class="toggle-label">We're so back</span>
-    </label>
+      <label for="back" class="toggle-label">We're so back</span>
+      <input id="back" name="over-back" class="toggle-radio" type="radio" checked />
+    </div>
     <div class="logo">
       <div>
         Concept by
